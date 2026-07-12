@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HRMS — Human Resource Management System</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- ──────────── SIDEBAR ──────────── -->
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+<div id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">HR</div>
+    <div class="brand-text">
+      <div class="brand">HR<span>MS</span></div>
+      <small>Human Resource Management</small>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">Overview</div>
+    <div class="nav-item">
+      <div class="nav-link active" data-page="dashboard">
+        <i class="bi bi-grid-1x2-fill"></i> Dashboard
+      </div>
+    </div>
+    <div class="nav-section">Recruitment</div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="job-ads">
+        <i class="bi bi-megaphone-fill"></i> Job Advertisements
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="applications">
+        <i class="bi bi-file-earmark-check-fill"></i> Applications
+      </div>
+    </div>
+    <div class="nav-section">People</div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="employers">
+        <i class="bi bi-building-fill"></i> Employers
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="seekers">
+        <i class="bi bi-people-fill"></i> Job Seekers
+      </div>
+    </div>
+    <div class="nav-section">Configuration</div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="job-positions">
+        <i class="bi bi-briefcase-fill"></i> Job Positions
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="cities">
+        <i class="bi bi-geo-alt-fill"></i> Cities
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="hr-employees">
+        <i class="bi bi-shield-fill-check"></i> HR Employees
+      </div>
+    </div>
+    <div class="nav-section">Tools</div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="api-explorer">
+        <i class="bi bi-terminal-fill"></i> API Explorer
+      </div>
+    </div>
+
+    <div class="nav-section preview-section">HR Modules · UI Preview</div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="demo-employees">
+        <i class="bi bi-person-badge-fill"></i> Employees <span class="preview-tag">Preview</span>
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="demo-departments">
+        <i class="bi bi-diagram-3-fill"></i> Departments <span class="preview-tag">Preview</span>
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="demo-leave">
+        <i class="bi bi-calendar2-week-fill"></i> Leave Types <span class="preview-tag">Preview</span>
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="demo-apply-leave">
+        <i class="bi bi-send-check-fill"></i> Apply Leave <span class="preview-tag">Preview</span>
+      </div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-link" data-page="demo-password">
+        <i class="bi bi-key-fill"></i> Change Password <span class="preview-tag">Preview</span>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="login.html" target="_blank" class="nav-link">
+        <i class="bi bi-box-arrow-in-right"></i> Login Screen <span class="preview-tag">Preview</span>
+      </a>
+    </div>
+  </div>
+  <div class="sidebar-footer">HRMS v2.0 · Spring Boot</div>
+</div>
+
+<!-- ──────────── TOPBAR ──────────── -->
+<div id="topbar">
+  <div class="d-flex align-items-center gap-3">
+    <button class="icon-btn d-lg-none" id="sidebarToggle">
+      <i class="bi bi-list"></i>
+    </button>
+    <span class="topbar-title" id="topbar-title">Dashboard</span>
+  </div>
+  <div class="topbar-actions">
+    <span class="topbar-badge" id="api-status-badge">⬤ Offline</span>
+    <button class="icon-btn d-none d-sm-flex" title="Notifications">
+      <i class="bi bi-bell"></i>
+    </button>
+    <div class="profile-dropdown">
+      <div class="profile-trigger" id="profileTrigger">
+        <div class="avatar">HR</div>
+        <div class="profile-meta">
+          <div class="pname">HR Admin</div>
+          <div class="prole">Administrator</div>
+        </div>
+        <i class="bi bi-chevron-down" style="font-size:11px;color:var(--slate)"></i>
+      </div>
+      <div class="profile-menu" id="profileMenu">
+        <div class="pm-item" onclick="navigate('demo-password')"><i class="bi bi-key"></i> Change Password</div>
+        <div class="pm-item"><i class="bi bi-gear"></i> Account Settings</div>
+        <hr>
+        <div class="pm-item danger"><i class="bi bi-box-arrow-right"></i> Sign Out</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────── TOAST ──────────── -->
+<div id="toast-container"></div>
+
+<!-- ──────────── MAIN ──────────── -->
+<div id="main">
+
+  <!-- ── DASHBOARD ── -->
+  <div class="page active" id="page-dashboard">
+    <div class="api-info-banner">
+      <i class="bi bi-hdd-network-fill"></i>
+      <div>
+        <div class="title">Connected to Spring Boot API</div>
+        <div class="sub">Backend: <span class="api-url" id="api-base-display">http://localhost:8080</span> &nbsp;·&nbsp; Set your URL in the API Explorer</div>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <div class="quick-action-btn" data-bs-toggle="modal" data-bs-target="#modal-add-ad"><i class="bi bi-plus-circle"></i> Post Job Ad</div>
+      <div class="quick-action-btn" data-bs-toggle="modal" data-bs-target="#modal-add-employer"><i class="bi bi-building"></i> Register Employer</div>
+      <div class="quick-action-btn" data-bs-toggle="modal" data-bs-target="#modal-add-seeker"><i class="bi bi-person-plus"></i> Register Seeker</div>
+      <div class="quick-action-btn" onclick="navigate('job-positions')"><i class="bi bi-briefcase"></i> Add Position</div>
+      <div class="quick-action-btn" onclick="navigate('cities')"><i class="bi bi-geo-alt"></i> Add City</div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-lg-3">
+        <div class="stat-card grad-blue" onclick="navigate('job-ads')">
+          <div class="stat-icon"><i class="bi bi-megaphone-fill"></i></div>
+          <div class="stat-info">
+            <div class="num" id="stat-ads">—</div>
+            <div class="lbl">Job Ads</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card grad-cyan" onclick="navigate('seekers')">
+          <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+          <div class="stat-info">
+            <div class="num" id="stat-seekers">—</div>
+            <div class="lbl">Job Seekers</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card grad-amber" onclick="navigate('employers')">
+          <div class="stat-icon"><i class="bi bi-building-fill"></i></div>
+          <div class="stat-info">
+            <div class="num" id="stat-employers">—</div>
+            <div class="lbl">Employers</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card grad-green" onclick="navigate('cities')">
+          <div class="stat-icon"><i class="bi bi-geo-alt-fill"></i></div>
+          <div class="stat-info">
+            <div class="num" id="stat-cities">—</div>
+            <div class="lbl">Cities</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header-custom">
+            <h5><i class="bi bi-megaphone me-2 text-primary"></i>Active Job Ads</h5>
+            <button class="btn-outline-custom" onclick="navigate('job-ads')"><i class="bi bi-arrow-right"></i> View All</button>
+          </div>
+          <div class="card-body-custom p-0">
+            <div id="dash-ads-list">
+              <div class="spinner-wrap"><div class="spinner-border"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3">
+          <div class="card-header-custom">
+            <h5><i class="bi bi-clock-history me-2 text-primary"></i>Recent Activity</h5>
+          </div>
+          <div class="card-body-custom p-0">
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--primary-lt);color:var(--primary)"><i class="bi bi-megaphone-fill"></i></div>
+              <div>
+                <div class="activity-text">New job advertisements sync from the API on every dashboard visit.</div>
+                <div class="activity-time">Live · refreshes every 5s</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--success-lt);color:#047857"><i class="bi bi-person-check-fill"></i></div>
+              <div>
+                <div class="activity-text">Job seeker and employer registrations appear here as they come in.</div>
+                <div class="activity-time">Connected to <code>/api</code></div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--accent-lt);color:#0E7490"><i class="bi bi-info-circle-fill"></i></div>
+              <div>
+                <div class="activity-text">This feed reflects live counts, not a stored activity log.</div>
+                <div class="activity-time">UI note</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-header-custom">
+            <h5><i class="bi bi-geo-alt me-2 text-success"></i>Cities</h5>
+            <button class="btn-outline-custom" onclick="navigate('cities')"><i class="bi bi-plus"></i> Add</button>
+          </div>
+          <div class="card-body-custom p-0">
+            <div id="dash-cities-list">
+              <div class="spinner-wrap"><div class="spinner-border"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <div class="card-header-custom">
+            <h5><i class="bi bi-briefcase me-2 text-warning"></i>Job Positions</h5>
+            <button class="btn-outline-custom" onclick="navigate('job-positions')"><i class="bi bi-plus"></i> Add</button>
+          </div>
+          <div class="card-body-custom p-0">
+            <div id="dash-positions-list">
+              <div class="spinner-wrap"><div class="spinner-border"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JOB ADVERTISEMENTS ── -->
+  <div class="page" id="page-job-ads">
+    <div class="page-head">
+      <h2>Job Advertisements</h2>
+      <p>Manage open roles and track their status across employers.</p>
+    </div>
+    <div class="filter-bar">
+      <div class="search-wrap flex-grow-1">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control" id="ads-search" placeholder="Search by title or company…" oninput="filterAds()">
+      </div>
+      <select class="form-select" style="width:140px" id="ads-filter-status" onchange="filterAds()">
+        <option value="">All Status</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+      <button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#modal-add-ad">
+        <i class="bi bi-plus-lg"></i> Post Job
+      </button>
+    </div>
+    <div class="card">
+      <div class="card-body-custom p-0">
+        <div class="table-responsive table-scroll-area">
+          <table class="table table-custom mb-0">
+            <thead>
+              <tr>
+                <th>Ad ID</th><th>Job Title</th><th>Company</th><th>City</th>
+                <th>Salary Range</th><th>Deadline</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ads-table-body">
+              <tr><td colspan="8"><div class="spinner-wrap"><div class="spinner-border"></div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JOB APPLICATIONS ── -->
+  <div class="page" id="page-applications">
+    <div class="page-head">
+      <h2>Applications</h2>
+      <p>Look up applications, submit a new one, or update a status.</p>
+    </div>
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header-custom">
+            <h5>Look Up Applications</h5>
+          </div>
+          <div class="card-body-custom">
+            <div class="custom-tabs">
+              <button class="custom-tab active" onclick="switchAppTab('by-ad')">By Advertisement</button>
+              <button class="custom-tab" onclick="switchAppTab('by-seeker')">By Job Seeker</button>
+            </div>
+            <div class="tab-pane active" id="app-tab-by-ad">
+              <div class="mb-3">
+                <label class="form-label">Advertisement ID</label>
+                <input type="number" class="form-control" id="app-ad-id" placeholder="e.g. 1">
+              </div>
+              <button class="btn-primary-custom" onclick="loadApplicationsByAd()">
+                <i class="bi bi-search"></i> Search
+              </button>
+            </div>
+            <div class="tab-pane" id="app-tab-by-seeker">
+              <div class="mb-3">
+                <label class="form-label">Job Seeker ID</label>
+                <input type="number" class="form-control" id="app-seeker-id" placeholder="e.g. 1">
+              </div>
+              <button class="btn-primary-custom" onclick="loadApplicationsBySeeker()">
+                <i class="bi bi-search"></i> Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header-custom"><h5>Apply for a Job</h5></div>
+          <div class="card-body-custom">
+            <div class="mb-3">
+              <label class="form-label">Advertisement ID</label>
+              <input type="number" class="form-control" id="apply-ad-id" placeholder="e.g. 3">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Job Seeker ID</label>
+              <input type="number" class="form-control" id="apply-seeker-id" placeholder="e.g. 2">
+            </div>
+            <button class="btn-teal-custom" onclick="applyForJob()">
+              <i class="bi bi-send-fill"></i> Submit Application
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header-custom">
+        <h5 id="app-results-title">Applications</h5>
+      </div>
+      <div class="card-body-custom p-0">
+        <div class="table-responsive table-scroll-area">
+          <table class="table table-custom mb-0">
+            <thead>
+              <tr><th>Application ID</th><th>Job Title</th><th>Company</th><th>Applied On</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="app-table-body">
+              <tr><td colspan="6"><div class="empty-state"><i class="bi bi-inbox"></i><p>Search to see applications</p></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EMPLOYERS ── -->
+  <div class="page" id="page-employers">
+    <div class="page-head">
+      <h2>Employers</h2>
+      <p>Companies registered to post job advertisements.</p>
+    </div>
+    <div class="filter-bar">
+      <div class="search-wrap flex-grow-1">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control" id="emp-search" placeholder="Search by company or email…" oninput="filterEmployers()">
+      </div>
+      <button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#modal-add-employer">
+        <i class="bi bi-plus-lg"></i> Register Employer
+      </button>
+    </div>
+    <div class="card">
+      <div class="card-body-custom p-0">
+        <div class="table-responsive table-scroll-area">
+          <table class="table table-custom mb-0">
+            <thead>
+              <tr><th>Employer ID</th><th>Company</th><th>Email</th><th>Phone</th><th>Website</th></tr>
+            </thead>
+            <tbody id="emp-table-body">
+              <tr><td colspan="5"><div class="spinner-wrap"><div class="spinner-border"></div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JOB SEEKERS ── -->
+  <div class="page" id="page-seekers">
+    <div class="page-head">
+      <h2>Job Seekers</h2>
+      <p>Candidates registered on the platform.</p>
+    </div>
+    <div class="filter-bar">
+      <div class="search-wrap flex-grow-1">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control" id="seeker-search" placeholder="Search by name or email…" oninput="filterSeekers()">
+      </div>
+      <button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#modal-add-seeker">
+        <i class="bi bi-plus-lg"></i> Register Job Seeker
+      </button>
+    </div>
+    <div class="card">
+      <div class="card-body-custom p-0">
+        <div class="table-responsive table-scroll-area">
+          <table class="table table-custom mb-0">
+            <thead>
+              <tr><th>Job Seeker ID</th><th>Name</th><th>Email</th><th>National ID</th><th>Birth Date</th></tr>
+            </thead>
+            <tbody id="seeker-table-body">
+              <tr><td colspan="5"><div class="spinner-wrap"><div class="spinner-border"></div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JOB POSITIONS ── -->
+  <div class="page" id="page-job-positions">
+    <div class="page-head">
+      <h2>Job Positions</h2>
+      <p>Position titles available to attach to a job advertisement.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header-custom"><h5>Add Job Position</h5></div>
+          <div class="card-body-custom">
+            <div class="mb-3">
+              <label class="form-label">Position Title</label>
+              <input type="text" class="form-control" id="pos-title" placeholder="e.g. Senior Java Developer">
+              <div class="invalid-feedback" id="pos-title-err"></div>
+            </div>
+            <button class="btn-primary-custom" onclick="addJobPosition()">
+              <i class="bi bi-plus-lg"></i> Add Position
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="card">
+          <div class="card-header-custom">
+            <h5>All Job Positions</h5>
+          </div>
+          <div class="card-body-custom p-0">
+            <div class="table-responsive table-scroll-area">
+              <table class="table table-custom mb-0">
+                <thead><tr><th>Position ID</th><th>Title</th></tr></thead>
+                <tbody id="pos-table-body">
+                  <tr><td colspan="2"><div class="spinner-wrap"><div class="spinner-border"></div></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CITIES ── -->
+  <div class="page" id="page-cities">
+    <div class="page-head">
+      <h2>Cities</h2>
+      <p>Locations available when posting a job advertisement.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header-custom"><h5>Add City</h5></div>
+          <div class="card-body-custom">
+            <div class="mb-3">
+              <label class="form-label">City Name</label>
+              <input type="text" class="form-control" id="city-name" placeholder="e.g. Istanbul">
+              <div class="invalid-feedback" id="city-name-err"></div>
+            </div>
+            <button class="btn-primary-custom" onclick="addCity()">
+              <i class="bi bi-plus-lg"></i> Add City
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header-custom">
+            <h5>All Cities</h5>
+          </div>
+          <div class="card-body-custom p-0">
+            <div class="table-responsive table-scroll-area">
+              <table class="table table-custom mb-0">
+                <thead><tr><th>City ID</th><th>City Name</th></tr></thead>
+                <tbody id="city-table-body">
+                  <tr><td colspan="2"><div class="spinner-wrap"><div class="spinner-border"></div></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HR EMPLOYEES ── -->
+  <div class="page" id="page-hr-employees">
+    <div class="page-head">
+      <h2>HR Employees</h2>
+      <p>Internal HR / system staff with access to this console.</p>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-header-custom"><h5>Add HR Employee</h5></div>
+          <div class="card-body-custom">
+            <div class="mb-3">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" id="hr-fname" placeholder="e.g. Seda">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="hr-lname" placeholder="e.g. Basaran">
+            </div>
+            <button class="btn-primary-custom" onclick="addHrEmployee()">
+              <i class="bi bi-plus-lg"></i> Add Employee
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="card">
+          <div class="card-header-custom">
+            <h5>HR Employees</h5>
+          </div>
+          <div class="card-body-custom p-0">
+            <div class="table-responsive table-scroll-area">
+              <table class="table table-custom mb-0">
+                <thead><tr><th>HR ID</th><th>First Name</th><th>Last Name</th></tr></thead>
+                <tbody id="hr-table-body">
+                  <tr><td colspan="3"><div class="spinner-wrap"><div class="spinner-border"></div></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── API EXPLORER ── -->
+  <div class="page" id="page-api-explorer">
+    <div class="page-head">
+      <h2>API Explorer</h2>
+      <p>Point the console at your Spring Boot backend and try any endpoint.</p>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header-custom"><h5><i class="bi bi-gear-fill me-2"></i>API Configuration</h5></div>
+      <div class="card-body-custom">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-8">
+            <label class="form-label">Backend Base URL</label>
+            <input type="text" class="form-control" id="api-base-url" value="http://localhost:8080" placeholder="http://localhost:8080">
+          </div>
+          <div class="col-md-4">
+            <button class="btn-teal-custom w-100" onclick="testConnection()">
+              <i class="bi bi-wifi"></i> Test Connection
+            </button>
+          </div>
+        </div>
+        <small class="text-muted mt-2 d-block">Make sure your Spring Boot server is running and CORS is configured.</small>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header-custom"><h5><i class="bi bi-send me-2"></i>Raw API Request</h5></div>
+      <div class="card-body-custom">
+        <div class="row g-3">
+          <div class="col-md-2">
+            <label class="form-label">Method</label>
+            <select class="form-select" id="req-method">
+              <option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Endpoint</label>
+            <input type="text" class="form-control" id="req-endpoint" placeholder="/api/cities/getAll">
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button class="btn-primary-custom w-100" onclick="sendRawRequest()">
+              <i class="bi bi-send-fill"></i> Send Request
+            </button>
+          </div>
+        </div>
+        <div class="mt-3">
+          <label class="form-label">Request Body (JSON)</label>
+          <textarea class="form-control" id="req-body" rows="5" placeholder='{"key": "value"}'></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header-custom">
+        <h5>Response</h5>
+        <div class="d-flex gap-2">
+          <span id="res-status-badge" class="topbar-badge" style="background:var(--slate)">—</span>
+          <button class="btn-sm-action" onclick="clearResponse()">Clear</button>
+        </div>
+      </div>
+      <div class="card-body-custom">
+        <pre id="response-output" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:12.5px;min-height:120px;overflow-x:auto;white-space:pre-wrap;color:var(--ink);margin:0">No response yet.</pre>
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-header-custom"><h5><i class="bi bi-book me-2"></i>Available Endpoints</h5></div>
+      <div class="card-body-custom">
+        <div class="row g-2">
+          <div id="endpoint-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ UI-PREVIEW-ONLY PAGES (no backend) ═══════════════════ -->
+
+  <!-- ── EMPLOYEES (PREVIEW) ── -->
+  <div class="page" id="page-demo-employees">
+    <div class="page-head"><h2>Employees</h2><p>Add and manage employee records.</p></div>
+    <div class="preview-banner">
+      <i class="bi bi-info-circle-fill"></i>
+      <div>
+        <div class="title">UI Preview — not connected to a backend</div>
+        <div class="sub">There's no Employee module in this project's Spring Boot API yet, so this screen stores data in your browser tab only, to demonstrate the requested layout.</div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-header-custom"><h5><i class="bi bi-person-plus me-2 text-primary"></i>Add Employee</h5></div>
+          <div class="card-body-custom">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="demo-emp-fname" placeholder=" ">
+              <label>First Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="demo-emp-lname" placeholder=" ">
+              <label>Last Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="demo-emp-email" placeholder=" ">
+              <label>Email Address</label>
+            </div>
+            <div class="form-floating mb-3">
+              <select class="form-select" id="demo-emp-dept">
+                <option value="Engineering">Engineering</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Sales">Sales</option>
+                <option value="Finance">Finance</option>
+              </select>
+              <label>Department</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="demo-emp-role" placeholder=" ">
+              <label>Job Title</label>
+            </div>
+            <button class="btn-primary-custom w-100 justify-content-center" onclick="demoAddEmployee()">
+              <i class="bi bi-plus-lg"></i> Add Employee
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header-custom">
+            <h5>Manage Employees</h5>
+            <span class="badge-soft-blue" id="demo-emp-count">0 employees</span>
+          </div>
+          <div class="card-body-custom p-0">
+            <div class="table-responsive table-scroll-area">
+              <table class="table table-custom mb-0">
+                <thead><tr><th>ID</th><th>Name</th><th>Department</th><th>Title</th><th>Email</th><th>Actions</th></tr></thead>
+                <tbody id="demo-emp-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DEPARTMENTS (PREVIEW) ── -->
+  <div class="page" id="page-demo-departments">
+    <div class="page-head"><h2>Departments</h2><p>Add and manage organizational departments.</p></div>
+    <div class="preview-banner">
+      <i class="bi bi-info-circle-fill"></i>
+      <div>
+        <div class="title">UI Preview — not connected to a backend</div>
+        <div class="sub">Stored in your browser tab only, to demonstrate the requested layout.</div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header-custom"><h5><i class="bi bi-diagram-3 me-2 text-primary"></i>Add Department</h5></div>
+          <div class="card-body-custom">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="demo-dept-name" placeholder=" ">
+              <label>Department Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="demo-dept-head" placeholder=" ">
+              <label>Department Head</label>
+            </div>
+            <button class="btn-primary-custom w-100 justify-content-center" onclick="demoAddDepartment()">
+              <i class="bi bi-plus-lg"></i> Add Department
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header-custom"><h5>Manage Departments</h5></div>
+          <div class="card-body-custom p-0">
+            <div class="table-responsive table-scroll-area">
+              <table class="table table-custom mb-0">
+                <thead><tr><th>ID</th><th>Department</th><th>Head</th><th>Employees</th><th>Actions</th></tr></thead>
+                <tbody id="demo-dept-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LEAVE TYPES (PREVIEW) ── -->
+  <div class="page" id="page-demo-leave">
+    <div class="page-head"><h2>Leave Types</h2><p>Define the categories of leave employees can apply for.</p></div>
+    <div class="preview-banner">
+      <i class="bi bi-info-circle-fill"></i>
+      <div>
+        <div class="title">UI Preview — not connected to a backend</div>
+        <div class="sub">Stored in your browser tab only, to demonstrate the requested layout.</div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header-custom"><h5><i class="bi bi-calendar2-week me-2 text-primary"></i>Add Leave Type</h5></div>
+          <div class="card-body-custom">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="demo-leavetype-name" placeholder=" ">
+              <label>Leave Type Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control" id="demo-leavetype-days" placeholder=" " min="0">
+              <label>Days Allowed / Year</label>
+            </div>
+            <button class="btn-primary-custom w-100 justify-content-center" onclick="demoAddLeaveType()">
+              <i class="bi bi-plus-lg"></i> Add Leave Type
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header-custom"><h5>All Leave Types</h5></div>
+          <div class="card-body-custom p-0">
+            <div class="table-responsive table-scroll-area">
+              <table class="table table-custom mb-0">
+                <thead><tr><th>ID</th><th>Leave Type</th><th>Days / Year</th><th>Actions</th></tr></thead>
+                <tbody id="demo-leavetype-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── APPLY LEAVE (PREVIEW) ── -->
+  <div class="page" id="page-demo-apply-leave">
+    <div class="page-head"><h2>Apply Leave</h2><p>Submit a leave request for an employee.</p></div>
+    <div class="preview-banner">
+      <i class="bi bi-info-circle-fill"></i>
+      <div>
+        <div class="title">UI Preview — not connected to a backend</div>
+        <div class="sub">Stored in your browser tab only, to demonstrate the requested layout.</div>
+      </div>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-header-custom"><h5><i class="bi bi-send-check me-2 text-primary"></i>New Leave Request</h5></div>
+          <div class="card-body-custom">
+            <div class="form-floating mb-3">
+              <select class="form-select" id="demo-apply-employee"><option value="">Select employee…</option></select>
+              <label>Employee</label>
+            </div>
+            <div class="form-floating mb-3">
+              <select class="form-select" id="demo-apply-type"><option value="">Select leave type…</option></select>
+              <label>Leave Type</label>
+            </div>
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <div class="form-floating">
+                  <input type="date" class="form-control" id="demo-apply-from" placeholder=" ">
+                  <label>From</label>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-floating">
+                  <input type="date" class="form-control" id="demo-apply-to" placeholder=" ">
+                  <label>To</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-floating mb-3">
+              <textarea class="form-control" id="demo-apply-reason" placeholder=" "></textarea>
+              <label>Reason</label>
+            </div>
+            <button class="btn-teal-custom w-100 justify-content-center" onclick="demoApplyLeave()">
+              <i class="bi bi-send-fill"></i> Submit Request
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="card">
+          <div class="card-header-custom"><h5>Leave Requests</h5></div>
+          <div class="card-body-custom p-0">
+            <div class="table-responsive table-scroll-area">
+              <table class="table table-custom mb-0">
+                <thead><tr><th>ID</th><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Status</th></tr></thead>
+                <tbody id="demo-leave-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CHANGE PASSWORD (PREVIEW) ── -->
+  <div class="page" id="page-demo-password">
+    <div class="page-head"><h2>Change Password</h2><p>Update the password used to sign in to this console.</p></div>
+    <div class="preview-banner">
+      <i class="bi bi-info-circle-fill"></i>
+      <div>
+        <div class="title">UI Preview — not connected to a backend</div>
+        <div class="sub">This project has no authentication module, so this form validates locally and does not persist anything.</div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card">
+          <div class="card-body-custom">
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="demo-pw-current" placeholder=" ">
+              <label>Current Password</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="demo-pw-new" placeholder=" ">
+              <label>New Password</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="demo-pw-confirm" placeholder=" ">
+              <label>Confirm New Password</label>
+            </div>
+            <button class="btn-primary-custom w-100 justify-content-center" onclick="demoChangePassword()">
+              <i class="bi bi-check-lg"></i> Update Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- ────────────── MODALS ────────────── -->
+
+<!-- ADD JOB ADVERTISEMENT -->
+<div class="modal fade" id="modal-add-ad" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Post New Job Advertisement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Job Position</label>
+            <select class="form-select" id="ad-position-id">
+              <option value="">Select position…</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">City</label>
+            <select class="form-select" id="ad-city-id">
+              <option value="">Select city…</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Employer ID</label>
+            <input type="number" class="form-control" id="ad-employer-id" placeholder="e.g. 1">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Open Positions</label>
+            <input type="number" class="form-control" id="ad-open-count" min="1" placeholder="e.g. 2">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Min Salary (optional)</label>
+            <input type="number" class="form-control" id="ad-min-salary" min="0" placeholder="e.g. 30000">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Max Salary (optional)</label>
+            <input type="number" class="form-control" id="ad-max-salary" min="0" placeholder="e.g. 60000">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Application Deadline</label>
+            <input type="date" class="form-control" id="ad-deadline">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Job Description</label>
+            <textarea class="form-control" id="ad-description" rows="4" placeholder="Describe the role, responsibilities, and requirements (min. 10 characters)…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-primary-custom" onclick="addJobAd()">
+          <i class="bi bi-check-lg"></i> Post Advertisement
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER EMPLOYER -->
+<div class="modal fade" id="modal-add-employer" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Register Employer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Company Name</label>
+            <input type="text" class="form-control" id="emp-company" placeholder="e.g. Tech Solutions Ltd.">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Website</label>
+            <input type="url" class="form-control" id="emp-website" placeholder="https://example.com">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="emp-email" placeholder="contact@example.com">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="emp-phone" placeholder="+90-555-123-4567">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" id="emp-password" placeholder="min. 6 characters">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="emp-confirm" placeholder="repeat password">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-primary-custom" onclick="registerEmployer()">
+          <i class="bi bi-check-lg"></i> Register
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER JOB SEEKER -->
+<div class="modal fade" id="modal-add-seeker" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Register Job Seeker</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" id="sk-fname" placeholder="e.g. Aysu">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="sk-lname" placeholder="e.g. Ay">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">National ID (10–20 chars)</label>
+            <input type="text" class="form-control" id="sk-national-id" placeholder="e.g. 12345678901">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Birth Date</label>
+            <input type="date" class="form-control" id="sk-birthdate">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="sk-email" placeholder="user@example.com">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" id="sk-password" placeholder="min. 6 characters">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="sk-confirm" placeholder="repeat password">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-primary-custom" onclick="registerSeeker()">
+          <i class="bi bi-check-lg"></i> Register
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE APPLICATION STATUS -->
+<div class="modal fade" id="modal-update-status" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Application Status</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="update-app-id">
+        <div class="mb-3">
+          <label class="form-label">New Status</label>
+          <select class="form-select" id="update-status-val">
+            <option value="PENDING">PENDING</option>
+            <option value="ACCEPTED">ACCEPTED</option>
+            <option value="REJECTED">REJECTED</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-primary-custom" onclick="submitStatusUpdate()">
+          <i class="bi bi-check-lg"></i> Update
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="footer">
+    <div>
+        © 2026 HRMS - Human Resource Management System
+    </div>
+
+    <div>
+        Developed by Lekhit Patil | Java Full Stack Developer
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

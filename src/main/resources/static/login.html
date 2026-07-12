@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — HRMS</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="login-wrap">
+
+  <!-- ── BRAND PANEL ── -->
+  <div class="login-brand-panel">
+    <div class="login-brand-top">
+      <div class="logo-mark">HR</div>
+      <div class="brand-text">
+        <div class="brand" style="font-size:20px">HR<span>MS</span></div>
+        <small>Human Resource Management</small>
+      </div>
+    </div>
+
+    <div class="login-brand-mid">
+      <h1>Run recruitment like it's your full‑time job — because it is.</h1>
+      <p>One console for job advertisements, applications, employers, and candidates — built on a Spring Boot API you control.</p>
+      <div class="login-stat-row">
+        <div>
+          <div class="n">2.4k+</div>
+          <div class="l">Candidates tracked</div>
+        </div>
+        <div>
+          <div class="n">98%</div>
+          <div class="l">Uptime</div>
+        </div>
+        <div>
+          <div class="n">120+</div>
+          <div class="l">Employers onboard</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-brand-bottom">© 2026 HRMS · Human Resource Management System</div>
+  </div>
+
+  <!-- ── LOGIN FORM PANEL ── -->
+  <div class="login-form-panel">
+    <div class="login-card">
+      <h2>Welcome back</h2>
+      <div class="sub">Sign in to your HRMS console</div>
+
+      <form id="loginForm" onsubmit="return handleDemoLogin(event)">
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-envelope field-icon"></i>
+            <input type="email" class="form-control" id="login-email" placeholder="you@company.com" required>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+          <div class="input-icon-wrap">
+            <i class="bi bi-lock field-icon"></i>
+            <input type="password" class="form-control" id="login-password" placeholder="Enter your password" required>
+            <i class="bi bi-eye pw-toggle" id="pwToggleIcon" onclick="togglePasswordVisibility()"></i>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3" style="font-size:12.5px">
+          <label class="d-flex align-items-center gap-2" style="cursor:pointer;color:var(--slate)">
+            <input type="checkbox" style="accent-color:var(--primary)"> Remember me
+          </label>
+          <a href="#" style="color:var(--primary);font-weight:600">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-primary-custom w-100 justify-content-center" style="padding:11px 20px">
+          <i class="bi bi-box-arrow-in-right"></i> Sign In
+        </button>
+      </form>
+
+      <div class="login-divider">or continue with</div>
+      <div class="d-flex gap-2">
+        <button class="btn-sm-action w-100 justify-content-center py-2" style="font-size:13px" disabled><i class="bi bi-google"></i>&nbsp; Google</button>
+        <button class="btn-sm-action w-100 justify-content-center py-2" style="font-size:13px" disabled><i class="bi bi-microsoft"></i>&nbsp; Microsoft</button>
+      </div>
+
+      <div class="login-footnote">
+        UI preview only — this project has no authentication backend, so signing in simply opens the dashboard.<br>
+        <a href="index.html" style="color:var(--primary);font-weight:600">Go to dashboard →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+  function togglePasswordVisibility() {
+    const input = document.getElementById('login-password');
+    const icon = document.getElementById('pwToggleIcon');
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    icon.classList.toggle('bi-eye', !show);
+    icon.classList.toggle('bi-eye-slash', show);
+  }
+
+  function handleDemoLogin(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const original = btn.innerHTML;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Signing in…';
+    btn.disabled = true;
+    setTimeout(() => { window.location.href = 'index.html'; }, 700);
+    return false;
+  }
+</script>
+</body>
+</html>
